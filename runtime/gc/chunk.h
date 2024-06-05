@@ -181,6 +181,8 @@ void HM_prependChunk(HM_chunkList list, HM_chunk chunk);
 void HM_unlinkChunk(HM_chunkList list, HM_chunk chunk);
 void HM_unlinkChunkPreserveLevelHead(HM_chunkList list, HM_chunk chunk);
 
+void HM_computeFragmentation(HM_chunkList list);
+
 /**
  * Calls foreachHHObjptrInObject() on every object starting at 'start', which
  * should be inside a chunk.

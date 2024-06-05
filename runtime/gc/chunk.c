@@ -81,6 +81,8 @@ void HM_appendChunk(HM_chunkList list, HM_chunk chunk) {
   list->lastChunk = chunk;
   list->size += HM_getChunkSize(chunk);
   list->usedSize += HM_getChunkUsedSize(chunk);
+
+  HM_computeFragmentation(list);
 }
 
 
@@ -88,6 +90,7 @@ void HM_appendChunk(HM_chunkList list, HM_chunk chunk) {
  * the returned pointer is equal to start, and thus each of
  * {start, end, end - start} must be aligned on the block size. */
 HM_chunk HM_initializeChunk(pointer start, pointer end) {
+  printf("Initialized a chunk with start: %p, end: %p\n", (void*)start, (void*)end);
   assert(start != NULL);
   assert(end != NULL);
   assert(isAligned((size_t)start, HM_BLOCK_SIZE));
@@ -663,3 +666,31 @@ bool listContainsChunk(HM_chunkList list, HM_chunk theChunk)
   }
   return FALSE;
 }
+
+void HM_computeFragmentation(HM_chunkList list) {
+  if (list->usedSize == 0) {
+    printf("no chunks in list\n");
+  } else {
+   double fragmentation = (double)(list->size - list->usedSize) / (double)list->size;
+    printf("Fragmentation: %.2f\n", fragmentation);
+  }
+  HM_chunk chunk = list->firstChunk;
+  size_t total_size = 0;
+  size_t total_in_use = 0;
+  while (chunk != NULL) {
+   size_t in_use = HM_getChunkUsedSize(chunk);
+   size_t total = HM_getChunkSize(chunk);
+    total_size += total;
+    total_in_use += in_use;
+    HM_chunk next = chunk->nextChunk;
+    chunk = next;
+  }
+
+  if (total_size == 0) {
+    printf("chunk list has no chunks\n");
+  } else {
+    double fragmentation = (double)(total_size - total_in_use) / (double)total_size;
+    printf("Total fragmentation: %.2f\n", fragmentation);
+  }
+}
+

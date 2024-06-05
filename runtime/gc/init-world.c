@@ -23,7 +23,7 @@ size_t sizeofInitialBytesLive (GC_state s) {
 
 void initDynHeap(GC_state s, GC_thread thread) {
   assert(0 == thread->currentDepth);
-
+  printf("init Dyn heap");
   HM_chunk currentChunk;
   HM_chunkList currentChunkList;
   pointer frontier, limit;

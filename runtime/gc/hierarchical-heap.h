@@ -115,7 +115,7 @@ static inline HM_chunkList HM_HH_getSuspects(HM_HierarchicalHeap hh)
   return &(hh->entanglementSuspects);
 }
 
-HM_HierarchicalHeap HM_HH_new(GC_state s, uint32_t depth);
+HM_HierarchicalHeap HM_HH_new(GC_state s, uint32_t depthHM_UnionFindNode);
 
 uint32_t HM_HH_getDepth(HM_HierarchicalHeap hh);
 

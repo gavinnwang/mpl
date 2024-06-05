@@ -109,12 +109,10 @@ front-end/%.lex.sml: front-end/%.lex
 	$(SED) -e 's/in Vector.fromList(List.map g/in Vector.fromList(Pervasive.List.map g/' $<.sml.in > $<.sml
 	$(RM) $<.sml.in
 	$(CP) $<.sml $<.sml.boot
-	$(CHMOD) -w $<.*
 else
 front-end/%.lex.sml: front-end/%.lex.sml.boot
 	$(RM) $@
 	$(CP) $< $@
-	$(CHMOD) -w $@
 endif
 
 ifeq (true,$(call HAVE_CMD,$(RUN_MLYACC)))
@@ -131,16 +129,13 @@ front-end/%.grm.sig front-end/%.grm.sml: front-end/%.grm
 	$(SED) -e 's/in Array.fromList(List.map actionRowLookUp actionRowNumbers)/in Array.fromList(Pervasive.List.map actionRowLookUp actionRowNumbers)/' $<.sml.in > $<.sml
 	$(RM) $<.sml.in
 	$(CP) $<.sml $<.sml.boot
-	$(CHMOD) -w $<.*
 else
 front-end/%.grm.sig: front-end/%.grm.sig.boot
 	$(RM) $@
 	$(CP) $< $@
-	$(CHMOD) -w $@
 front-end/%.grm.sml: front-end/%.grm.sml.boot
 	$(RM) $@
 	$(CP) $< $@
-	$(CHMOD) -w $@
 endif
 
 mlton-stubs.mlb: $(shell $(MLBDEPS) ../lib/stubs/mlton-stubs/sources.mlb | $(GREP) 'mlb$$' | $(GREP) -v '$$(SML_LIB)') $(shell $(MLBDEPS) mlton.mlb | $(GREP) 'mlb$$' | $(GREP) -v '$$(SML_LIB)')

@@ -767,7 +767,7 @@ struct
         val depth = HH.getDepth thread
         val newDepth = depth-1
         val tidLeft = DE.decheckGetTid thread
-
+        val _ = print "hi"
         val result =
           (* Might seem like a space leak here, because we don't clean up the
            * thread that was spawned and added to the deque. But this is okay:
